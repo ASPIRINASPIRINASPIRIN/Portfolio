@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eunseo Hyun 현은서</title>
+
+        <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+        <script src="scripts/mainscript.js"></script>
+
+        <script type="text/javascript">
+// <![CDATA[
+var width= 20; // radius of the eyes in pixels
+var colour= 'white';// colour of the eye - bluey green in this case
+var iris= 'black'; //   colour of the iris (normally black);
+
+/***************************\
+*   Moving Eyeballs Effect  *
+*(c)2012-20 mf2fm web-design*
+*  http://www.mf2fm.com/rv  *
+* DON'T EDIT BELOW THIS BOX *
+\***************************/
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+
+var glasses, lefteyeball, righteyeball, lefteye, righteye;
+
+function addLoadEvent(funky) {
+  var oldonload=window.onload;
+  if (typeof(oldonload)!='function') window.onload=funky;
+  else window.onload=function() {
+    if (oldonload) oldonload();
+    funky();
+  }
+}
+
+addLoadEvent(draw_eyes);
+
+function draw_eyes() {
+  var i, j, l, r;
+  glasses=document.createElement("div");
+  i=glasses.style;
+  i.position="fixed";
+  i.top="5%";
+  i.left="50%";
+  i.width="1px";
+  i.height="1px";
+  i.overflow="visible";
+  i.zIndex="100";
+  i.pointerEvents="none";
+  document.body.appendChild(glasses);
+  lefteyeball=document.createElement("div");
+  righteyeball=document.createElement("div");
+  i=lefteyeball.style;
+  j=righteyeball.style;
+  i.position=j.position="absolute";
+  i.width=j.width=(width*2)+"px";
+  i.height=j.height=(width*2)+"px";
+  i.top=j.top=(-width)+"px";
+  i.left=(-2.1*width)+"px";
+  j.left=(.1*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=colour;
+  i.background=j.background="radial-gradient(circle at "+width+"px "+width+"px, #fff, "+colour+" 80%)";
+  i.opacity=j.opacity="1";
+  i.zIndex=j.zIndex="100";
+  glasses.appendChild(lefteyeball);
+  glasses.appendChild(righteyeball);
+  lefteye=document.createElement("div");
+  righteye=document.createElement("div");
+  i=lefteye.style;
+  j=righteye.style;
+  i.position=j.position="absolute";
+  i.width=j.width=width+"px";
+  i.height=j.height=width+"px";
+  i.top=j.top=(-width/2)+"px";
+  i.left=(-1.6*width)+"px";
+  j.left=(.6*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=iris;
+  i.opacity=j.opacity="0.8";
+  i.zIndex=j.zIndex="101";
+  glasses.appendChild(lefteye);
+  glasses.appendChild(righteye);
+  set_width();
+  set_scroll();
+}
+
+
+document.onmousemove=mouse;
+function mouse(e) {
+  var x, y, xdiff, ydiff, distn;
+
+  y=(e)?e.pageY:event.y;
+  x=(e)?e.pageX:event.x;
+  x-=sleft;
+  y-=sdown;
+
+  xdiff=x+(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  lefteye.style.top=(ydiff-width/2)+"px";
+  lefteye.style.left=(xdiff-1.6*width)+"px";
+
+  xdiff=x-(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  righteye.style.top=(ydiff-width/2)+"px";
+  righteye.style.left=(xdiff+0.6*width)+"px";
+}
+
+document.onscroll=set_scroll;
+function set_scroll() {
+  if (typeof(self.pageYOffset)=="number") {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body.scrollTop || document.body.scrollLeft) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+	sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min;
+  shigh=sh_min;
+}
+// ]]>
+</script>
+    </head>
+
+    <body>
+
+        <nav>
+            <ul>
+                <li><a id="home" href="#">🎱</a></li>
+                <li><a href="#projects">Eunseo Hyun!</a></li>
+                <li><a href="#footer">Contact</a></li>
+                <li><a href="#resume">Info</a></li>
+            </ul>
+        </nav>
+
+        <section id="projects">
+            <article data="Typeface design" onClick="location.href='Astra.html'"><img src="https://i.imgur.com/3hVpHsk.png"><p>Astra(2021-2022)</p></article><article data="숙대신보 아카이브 북 디자인" onClick="location.href='sm_news.html'"><img src="https://i.imgur.com/HdANm5s.jpg"><p>신문 속 여백(2022)</p></article><article data="Self-initiative internship project which has done at Triangle Studio" onClick="location.href='The_Landscape_Outside_of_Chronicle.html'"><img src="https://i.imgur.com/Q2JJaiW.jpg"><p>The Landscape Outside of Chronicle/2021(2021)</p></article><article data="Self-initiative internship project which has done at Studio Lift-Off" onClick="location.href='commemoration.html'"><img src="https://i.imgur.com/sq6uJ7E.jpg"><p>Commemoration(2021)</p></article><article data="2022 NSL Capsule collection collaboration with We Are Labels" onClick="location.href='ESCAPING_FROM_THE_CHAOS.html'"><img src="https://i.imgur.com/qG9REiA.jpg"><p>ESCAPING FROM THE CHAOS(2021)</p></article><article data="Self-initiative poster design" onClick="location.href='albino.html'"><img src="https://i.imgur.com/J2DsOqX.jpg"><p>Albino(2018)</p></article><article data="Redesigned the penguin observation log 'Antartic Penguins' by Dr.G.Murray Levick R.N." onClick="location.href='antartic_penguins.html'"><img src="https://i.imgur.com/lpxRXlz.png"><p>Antartic Penguins(2020)</p></article><article data="Wall newspaper design" onClick="location.href='life_of_marginality.html'"><img src="https://i.imgur.com/dwyemgs.jpg"><p>Life of Marginality(2019)</p></article><article data="Video, publication design" onClick="location.href='like_the_cosmos_in_the_dirt.html'"><img src="media/bookspreads.gif"><p>LIKE THE COSMOS IN THE DIRT(2020)</p></article><article data="Sound and material based installation" onClick="location.href='below_here.html'"><img src="https://i.imgur.com/91ZHqts.jpg"><p>Below Here(2021)</p></article><article data="VR game(Work in progress)" onClick="location.href='freeze_your_gaze.html'"><img src="https://i.imgur.com/OtfWXW4.gif"><p>Freeze! Your Gaze</p></article><article data="Visual identity for the zine 'A Piece of Cake'(Work in progress)"><img src="https://i.imgur.com/rQZHPPK.png"><p>A Piece of Cake</p></article>
+        </section>
+
+        <section id="resume">
+            <article id="profile">
+                <h1 data="🐧">Eunseo Hyun</h1>
+                <ul class="resume-content">
+                    <li class="resume-content-item">현은서(KR)</li>
+                    <li class="resume-content-item">Multidisciplinary designer based in Netherlands and Korea</li>
+                    <li class="resume-content-item">@aspirin.works</li>
+                    <li class="resume-content-item">aspirinx3@gmail.com</li>
+                    <li class="resume-content-item">Eunseo Hyun is a Multidisciplinary designer that enjoys creating her own visual narrative by combining familiar graphics with unexpected digital components.
+                    She enjoys creating interactive projects with a humorous undertone, as well as powerful visual identities inspired by images.</li>
+                    <li class="resume-content-item">Type design / Visual research / Visual identity design / Moving image production / 3D / Web design / Editorial design / Illustration</li>
+                </ul>
+            </article>
+            <article id="education">
+                <h1 data="✨">Education</h1>
+                <ul class="resume-content">
+                    <li class="resume-content-item">Studied Graphic Design at Royal Academy of Art, The Hague(Koninklijke Academie van Beeldende Kunsten)</li>
+                    
+                </ul>
+            </article>
+            <article id="experience">
+                <h1 data="🐱">Professional Experience</h1>
+                <ul class="resume-content">
+                    <li class="resume-content-item">Internship at Triangle Studio 트라이앵글 스튜디오 인턴십(2021)</li>
+                    <li class="resume-content-item">Internship at Studio Lift-Off 스튜디오 리프트오프 인턴십(2021)</li>
+                    <li class="resume-content-item">Collab with WE ARE LABELS</li>
+                </ul>
+            </article>
+        </section>
+
+
+        <section id="footer">
+            <footer>
+                <div class="column">
+                    <form name="input" action="" method="get">
+                        <input type="text" name="Name" value="First name" size="20" style="padding-left: 1em;">
+                        <input type="text" name="Last name" value="Griffin" size="20" style="padding-left: 1em;">
+                        <textarea name="Message" rows="3" style="padding-left: 1.5em;" placeholder="Type your message here🌈"></textarea>
+                    </form>
+                    <a href="mailto:aspirinx3@gmail.com"><button id="footer-button">Send Message</button></a>
+                </div>
+
+
+            </footer>
+        </section>
+
+    </body>
+</html>
