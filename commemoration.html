@@ -1,0 +1,195 @@
+<html>
+    <head>
+        <title>🎱Eunseo Hyun 현은서</title>
+
+        <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+        <script src="scripts/mainscript.js"></script>
+
+        <script type="text/javascript">
+// <![CDATA[
+var width= 20; // radius of the eyes in pixels
+var colour= 'white';// colour of the eye - bluey green in this case
+var iris= 'black'; //   colour of the iris (normally black);
+
+/***************************\
+*   Moving Eyeballs Effect  *
+*(c)2012-20 mf2fm web-design*
+*  http://www.mf2fm.com/rv  *
+* DON'T EDIT BELOW THIS BOX *
+\***************************/
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+
+var glasses, lefteyeball, righteyeball, lefteye, righteye;
+
+function addLoadEvent(funky) {
+  var oldonload=window.onload;
+  if (typeof(oldonload)!='function') window.onload=funky;
+  else window.onload=function() {
+    if (oldonload) oldonload();
+    funky();
+  }
+}
+
+addLoadEvent(draw_eyes);
+
+function draw_eyes() {
+  var i, j, l, r;
+  glasses=document.createElement("div");
+  i=glasses.style;
+  i.position="fixed";
+  i.top="5%";
+  i.left="50%";
+  i.width="1px";
+  i.height="1px";
+  i.overflow="visible";
+  i.zIndex="100";
+  i.pointerEvents="none";
+  document.body.appendChild(glasses);
+  lefteyeball=document.createElement("div");
+  righteyeball=document.createElement("div");
+  i=lefteyeball.style;
+  j=righteyeball.style;
+  i.position=j.position="absolute";
+  i.width=j.width=(width*2)+"px";
+  i.height=j.height=(width*2)+"px";
+  i.top=j.top=(-width)+"px";
+  i.left=(-2.1*width)+"px";
+  j.left=(.1*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=colour;
+  i.background=j.background="radial-gradient(circle at "+width+"px "+width+"px, #fff, "+colour+" 80%)";
+  i.opacity=j.opacity="1";
+  i.zIndex=j.zIndex="100";
+  glasses.appendChild(lefteyeball);
+  glasses.appendChild(righteyeball);
+  lefteye=document.createElement("div");
+  righteye=document.createElement("div");
+  i=lefteye.style;
+  j=righteye.style;
+  i.position=j.position="absolute";
+  i.width=j.width=width+"px";
+  i.height=j.height=width+"px";
+  i.top=j.top=(-width/2)+"px";
+  i.left=(-1.6*width)+"px";
+  j.left=(.6*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=iris;
+  i.opacity=j.opacity="0.8";
+  i.zIndex=j.zIndex="101";
+  glasses.appendChild(lefteye);
+  glasses.appendChild(righteye);
+  set_width();
+  set_scroll();
+}
+
+
+document.onmousemove=mouse;
+function mouse(e) {
+  var x, y, xdiff, ydiff, distn;
+
+  y=(e)?e.pageY:event.y;
+  x=(e)?e.pageX:event.x;
+  x-=sleft;
+  y-=sdown;
+
+  xdiff=x+(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  lefteye.style.top=(ydiff-width/2)+"px";
+  lefteye.style.left=(xdiff-1.6*width)+"px";
+
+  xdiff=x-(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  righteye.style.top=(ydiff-width/2)+"px";
+  righteye.style.left=(xdiff+0.6*width)+"px";
+}
+
+document.onscroll=set_scroll;
+function set_scroll() {
+  if (typeof(self.pageYOffset)=="number") {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body.scrollTop || document.body.scrollLeft) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+  sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min;
+  shigh=sh_min;
+}
+// ]]>
+</script>
+
+    </head>
+
+    <body>
+
+        <nav>
+            <ul>
+                <li><a id="home" href="#" onClick="location.href='index.html'">🎱</a></li>
+                <li><a href="#projects" onClick="location.href='index.html'">Eunseo Hyun!</a></li>
+            </ul>
+        </nav>
+
+        <div id="work">
+        <p>Commemoration(2021)-Poster
+        <p>개개인의 경조사를 기념하는 시각적, 언어적 기호가 극대화되면 어떤 시각적 효과를 불러 일으킬까? 라는 질문을 바탕으로 전개한 작업입니다. 한국의 가정에서 흔히 찾을 수 있는 기념 수건 속의 단어들이, 개인의 경조사를 기념하기에는 상당히 권위적인 어투를 띄고 있는 점이 재미있다고 느껴져
+          기념하기 위한 무게 있는 시각적 언어로서 가장 자주 쓰이는 십장생 패턴을 응용해 투명한 포스터를 만들어 수건을 사이에 끼워 특정한 이벤트를 기념할 수 있게끔 만들었습니다.
+        <br>이 작업은 스튜디오 Lift-Off에서 인턴십 과정 동안 이진우, 최세진 디자이너의 디렉션을 통해 만들어졌습니다.
+        <br>디자인: 현은서
+        <br>디렉션: 이진우, 최세진
+        <br>Poster design which is made for memorating personal events by putting the towels inside of it. This work is processed based on the research question of ‘What visual effects will emerge from maximizing visual and verbal symbols commemorating personal events?’. It was fascinating to see that the inscriptions on commemorative towels—popular gifts to give away at important anniversaries such as marriages or elder's birthdays—commonly found in Korean domestics had an authoritarian tone that is too heavy for celebrating 'personal anniversaries.' As a result, I took patterns from the Ten Symbols of Longevity, a traditional visual language for wishing abundance and longevity, and used them to design a translucent poster. For commemoration, the poster could be displayed with a towel inside of it.
+        <br>This work was made during the internship at Studio Lift-Off, with the directing by Jinwoo Lee, and Sejin Choi.
+        <br>Design: Eunseo Hyun(Aspirin)
+        <br>Art Direction: Jinwoo Lee, Sejin Choi </p>
+        <img src="https://i.imgur.com/sq6uJ7E.jpg">
+        <img src="https://i.imgur.com/kRJb7tO.jpg">
+        <img src="https://i.imgur.com/GaccnZG.jpg">
+        </div>
+
+        </body>
+        </html>
