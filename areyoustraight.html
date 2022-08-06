@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>🎱Eunseo Hyun 현은서</title>
+
+        <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+        <script src="scripts/mainscript.js"></script>
+
+        <script type="text/javascript">
+// <![CDATA[
+var width= 20; // radius of the eyes in pixels
+var colour= 'white';// colour of the eye - bluey green in this case
+var iris= 'black'; //   colour of the iris (normally black);
+
+/***************************\
+*   Moving Eyeballs Effect  *
+*(c)2012-20 mf2fm web-design*
+*  http://www.mf2fm.com/rv  *
+* DON'T EDIT BELOW THIS BOX *
+\***************************/
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+
+var glasses, lefteyeball, righteyeball, lefteye, righteye;
+
+function addLoadEvent(funky) {
+  var oldonload=window.onload;
+  if (typeof(oldonload)!='function') window.onload=funky;
+  else window.onload=function() {
+    if (oldonload) oldonload();
+    funky();
+  }
+}
+
+addLoadEvent(draw_eyes);
+
+function draw_eyes() {
+  var i, j, l, r;
+  glasses=document.createElement("div");
+  i=glasses.style;
+  i.position="fixed";
+  i.top="5%";
+  i.left="50%";
+  i.width="1px";
+  i.height="1px";
+  i.overflow="visible";
+  i.zIndex="100";
+  i.pointerEvents="none";
+  document.body.appendChild(glasses);
+  lefteyeball=document.createElement("div");
+  righteyeball=document.createElement("div");
+  i=lefteyeball.style;
+  j=righteyeball.style;
+  i.position=j.position="absolute";
+  i.width=j.width=(width*2)+"px";
+  i.height=j.height=(width*2)+"px";
+  i.top=j.top=(-width)+"px";
+  i.left=(-2.1*width)+"px";
+  j.left=(.1*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=colour;
+  i.background=j.background="radial-gradient(circle at "+width+"px "+width+"px, #fff, "+colour+" 80%)";
+  i.opacity=j.opacity="1";
+  i.zIndex=j.zIndex="100";
+  glasses.appendChild(lefteyeball);
+  glasses.appendChild(righteyeball);
+  lefteye=document.createElement("div");
+  righteye=document.createElement("div");
+  i=lefteye.style;
+  j=righteye.style;
+  i.position=j.position="absolute";
+  i.width=j.width=width+"px";
+  i.height=j.height=width+"px";
+  i.top=j.top=(-width/2)+"px";
+  i.left=(-1.6*width)+"px";
+  j.left=(.6*width)+"px";
+  i.borderRadius=j.borderRadius="50%";
+  i.backgroundColor=j.backgroundColor=iris;
+  i.opacity=j.opacity="0.8";
+  i.zIndex=j.zIndex="101";
+  glasses.appendChild(lefteye);
+  glasses.appendChild(righteye);
+  set_width();
+  set_scroll();
+}
+
+
+document.onmousemove=mouse;
+function mouse(e) {
+  var x, y, xdiff, ydiff, distn;
+
+  y=(e)?e.pageY:event.y;
+  x=(e)?e.pageX:event.x;
+  x-=sleft;
+  y-=sdown;
+
+  xdiff=x+(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  lefteye.style.top=(ydiff-width/2)+"px";
+  lefteye.style.left=(xdiff-1.6*width)+"px";
+
+  xdiff=x-(1.1*width)-(swide*0.5);
+  ydiff=y-shigh/2;
+  distn=Math.pow(xdiff*xdiff+ydiff*ydiff,0.5);
+  if (distn>width/2.5) {
+    xdiff=xdiff*width/distn/2.5;
+    ydiff=ydiff*width/distn/2.5;
+  }
+  righteye.style.top=(ydiff-width/2)+"px";
+  righteye.style.left=(xdiff+0.6*width)+"px";
+}
+
+document.onscroll=set_scroll;
+function set_scroll() {
+  if (typeof(self.pageYOffset)=="number") {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body.scrollTop || document.body.scrollLeft) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+  sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min;
+  shigh=sh_min;
+}
+// ]]>
+</script>
+
+    </head>
+
+    <body>
+
+        <nav>
+            <ul>
+                <li><a id="home" href="#" onClick="location.href='index.html'">🎱</a></li>
+                <li><a href="#projects" onClick="location.href='index.html'">Eunseo Hyun!</a></li>
+            </ul>
+        </nav>
+
+        <div id="work">
+        <p>Are you straight? / No, I have scoliosis!(2021)-Graphic on textile</p>
+        <p>Designed a T-shirt using an X-ray of my spine from when I was diagnosed with scoliosis two years ago. Inspired by a meme that is difficult for me to forget as a person with scoliosis and curved shoulders.
+        <br>This work was made during the internship at Triangle-Studio, with the directing by Kisung Jang.
+        <br>Design: Eunseo Hyun
+        <br>Art Direction: Kisung Jang
+        <br>척추측만증과 굽은 어깨를 가진 사람으로서 잊기 힘든 밈(meme)을 응용해, 2년 전에 척추측만증을 진단받았을때에 찍은 척추의 엑스레이를 곁들여 티셔츠를 제작했습니다. 휘어진 척추 모양이 경쾌해 보이니 좋다고 스스로를 위로하기엔 점점 갈수록 구부정해지는 자세가 신경쓰여, 등 뒤에 "Let me know if I am sitting in a terrible posture!"라는 문장을 추가해 바른 자세를 유지하고자 만든 티셔츠입니다.
+        <br>이 작업은 트라이앵글 스튜디오에서 인턴십 과정 동안 장기성 디자이너의 디렉션을 통해 만들어졌습니다.
+        <br>디자인: 현은서
+        <br>디렉션: 장기성
+        </p>
+        <img src="https://i.imgur.com/sejQSaA.gif">
+        <img src="https://i.imgur.com/F9u672J.png">
+        <img src="https://i.imgur.com/wOXOtyY.png">
+        <img src="https://i.imgur.com/FmXplx8.png">
+        <img src="https://i.imgur.com/N5YTUTr.jpg">
+        </div>
+
+        </body>
+        </html>
