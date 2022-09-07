@@ -10,7 +10,7 @@
 
         <script type="text/javascript">
 // <![CDATA[
-var width= 20; // radius of the eyes in pixels
+var width= 30; // radius of the eyes in pixels
 var colour= 'white';// colour of the eye - bluey green in this case
 var iris= 'black'; //   colour of the iris (normally black);
 
@@ -42,7 +42,7 @@ function draw_eyes() {
   glasses=document.createElement("div");
   i=glasses.style;
   i.position="fixed";
-  i.top="5%";
+  i.bottom="5%";
   i.left="50%";
   i.width="1px";
   i.height="1px";
@@ -130,7 +130,7 @@ function set_scroll() {
   }
   else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
     sleft=document.documentElement.scrollLeft;
-  sdown=document.documentElement.scrollTop;
+	sdown=document.documentElement.scrollTop;
   }
   else {
     sdown=0;
@@ -181,7 +181,7 @@ function set_width() {
         <br>This game was created utilizing Unity and Blender.
         <br>Game graphics/sound design/game development/3D animation: Eunseo Hyun
         <br>
-        <br>어째서 미디어의 최전선에 자랑스럽게 등장하는 신체의 모습들은 한정적일까요? 만약 시각적인 즐거움을 추구하는 것이 부끄러운 일이 아니라면, 왜 우리는 무의식적으로 사회적 정상성에 부합하는 특정한 형태의 몸만을 열망하는 것일까요? Freeze! Your Gazes는 이러한 물음을 전달하고 그에 대한 해답을 우화적인 방식으로 찾아가는 가상현실 게임입니다. 
+        <br>어째서 미디어의 최전선에 자랑스럽게 등장하는 신체의 모습들은 한정적일까요? 만약 시각적인 즐거움을 추구하는 것이 부끄러운 일이 아니라면, 왜 우리는 무의식적으로 사회적 정상성에 부합하는 특정한 형태의 몸만을 열망하는 것일까요? Freeze! Your Gaze는 이러한 물음을 전달하고 그에 대한 해답을 우화적인 방식으로 찾아가는 가상현실 게임입니다. 
         <br>저는 이 게임을 통해 대중들에게 특정한 몸만을 이상적인 형태로 여기고 시각적으로 소비하게끔 종용하는 미디어의 역할에 대해 비판하고, 플레이어들이 직접 특정한 포즈를 취하게끔 유도하여 특정한 형태의 몸만을 이상적이라고 추구하는 것 자체가 얼마나 불편하고 어려운지에 대해 전달합니다.
         <br>이 게임은 Unity와 Blender를 사용해 만들어졌습니다.
         <br>게임 그래픽/사운드 디자인/게임 개발/3D 애니메이션: 현은서
