@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
         <script src="scripts/mainscript.js"></script>
 
-        <script type="text/javascript">
+      <script type="text/javascript">
 // <![CDATA[
-var width= 20; // radius of the eyes in pixels
+var width= 30; // radius of the eyes in pixels
 var colour= 'white';// colour of the eye - bluey green in this case
 var iris= 'black'; //   colour of the iris (normally black);
 
@@ -42,7 +42,7 @@ function draw_eyes() {
   glasses=document.createElement("div");
   i=glasses.style;
   i.position="fixed";
-  i.top="5%";
+  i.bottom="5%";
   i.left="50%";
   i.width="1px";
   i.height="1px";
@@ -130,7 +130,7 @@ function set_scroll() {
   }
   else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
     sleft=document.documentElement.scrollLeft;
-  sdown=document.documentElement.scrollTop;
+	sdown=document.documentElement.scrollTop;
   }
   else {
     sdown=0;
