@@ -3,12 +3,12 @@
     --font-size-m: 16px;
     --font-size-s: 12px;
     --line-height: 1.15em;
-    --charcoal-dark: rgba(51, 51, 51, 1);
-    --charcoal-semi: rgba(51, 51, 51, 0.6);
-    --charcoal-light: rgba(51, 51, 51, 0.2);
-    --yellow-full: rgba(229, 176, 255, 1);
-    --green-full: rgba(255, 255, 255, 1);
-    --purple-full: rgba(0, 0, 0, 1);
+    --charcoal-dark: rgba(255, 255, 255);
+    --charcoal-semi: rgba(255, 255, 255);
+    --charcoal-light: rgba(255, 255, 255);
+    --yellow-full: rgba(255, 255, 255);
+    --green-full: rgba(255, 255, 255);
+
 }
 
 * {
@@ -24,6 +24,9 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: black;
+    topmargin: 0;
+    leftmargin: 0;
+    rightmargin: 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap');
@@ -36,46 +39,64 @@ body {
 
 nav {
     position: fixed;
-    top: 0;
-    left: 0em;
-    right: 0em;
-    padding: 1em;
-    margin-top: 1em;
-    box-sizing: border-box;
+    transform-origin: left top;
+    transform: rotate(-90deg)
+    translateX(-100%);
+    width: 100vh;
+    height: 50px;
     z-index: 100;
-
+    mix-blend-mode: exclusion;
 }
 
 nav > ul {
-    list-style: none;
+    display:flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 nav > ul > li {
-    display: inline-block;
-    margin: 0 1em 0 0;
-    border-radius: calc(0.4em + 15px);
-    padding: 8px 9px;
-    background-color: white;
-    box-shadow: 0 0 10px white;
+    height: 50px;
+    list-style: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    flex-flow: row wrap;
 }
 
-nav > ul > li:hover {
-  background-color: rgba(229, 176, 255, 1);
+nav > ul > li > a{
+      flex:1;
+      display: block;
+      color: white;
+      text-shadow: 0 0 3px #FFFFFF;
+    }
+
+.logo-image{
+
+   overflow: hidden;
+   margin-left: -2em;
+   margin-right: 1em;
+   margin-top: 0;
+   display: inline;
+   max-height: 50px;
+   max-width: 50px;
+
+   filter: drop-shadow(1px 1px 1px rgb(255 255 255 / 1));
 }
 
-nav > ul > li:nth-of-type(3), nav > ul > li:nth-of-type(4) {
+/*nav > ul > li:nth-of-type(3), nav > ul > li:nth-of-type(4) {
     float: right;
-}
+}*/
 
 nav a:not(#home) {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 #home {
     font-size: var(--font-size-l);
-    font-weight: 400;
-    color: black;
+    font-weight: 800;
+    color: white;
 }
 
 section {
@@ -106,17 +127,19 @@ section:last-of-type {
     width: calc(50% - (var(--font-size-s)/2));
     height: 600px;
     padding: 2em;
-    background-color: var(--charcoal-dark);
+    background-color: black;
     box-sizing: border-box;
     overflow: hidden;
 }
 
 #projects article > p{
-color: var(--yellow-full);
+color: black;
 position: absolute;
 border-radius: calc(0.4em + 15px);
 padding: 8px 9px;
-background-color: black;
+background-color: white;
+border-style: solid;
+border-color: black;
 }
 
 #projects article:nth-of-type(odd) {
@@ -127,22 +150,13 @@ background-color: black;
     margin: 0 0 var(--font-size-s) calc(var(--font-size-s)/2);
 }
 
-section > footer {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    box-sizing: content-box;
-    border-radius: 4px;
-}
 
 #projects > article > img {
     position: absolute;
-    display: block;
+    display: inline-block;
     left: 50%;
     top: 50%;
-    min-height: 100%;
+
     height: auto;
     width: 100%;
     margin: auto;
@@ -154,7 +168,7 @@ section > footer {
 #projects > article > img:hover {
     cursor: pointer;
     width: 102.5%;
-    opacity: 0.7;
+
 }
 
 img + p {
@@ -166,34 +180,33 @@ img + p {
 
 #work {
   position: absolute;
-  width: 100%;
   height: auto;
   background-color: black;
+  padding-left: 5em;
 }
+
 
 #work > p{
   width: auto;
-  margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
+  margin-top: 5em;
   max-width: 70%;
   color: white;
   text-align: left;
   display: inline-block;
-  font-size: 1.2rem;
-  line-height: 1.3em;
+  font-size: 1rem;
+  line-height: 1.6em;
   margin-bottom: 100px;
-  word-break: keep-all;
-  padding-left: 2em;
-  display: inline-block;
+  word-wrap:break-word;
 }
+
 
 #work > img {
     position: relative;
     display: grid;
     place-items: center;
     height: auto;
-    width: 60%;
+    width: 50%;
     margin: auto;
     transition: width 1s linear;
     z-index: 90;
@@ -204,15 +217,18 @@ div{
 }
 
 #resume {
-    color: black;
+    color: white;
     padding-left: 0;
+    background-color: black;
+    margin-bottom: calc(var(--font-size-m) * 5);
 }
 
 h1 {
     font-weight: 400;
     font-size: 2em;
-    line-height: 0.8em;
-    margin-left: calc(var(--font-size-m) * 2);
+    line-height: 1.2em;
+    margin-left: calc(var(--font-size-m) * 7);
+    margin-top: calc(var(--font-size-m) * 5);
 }
 
 .resume-content {
@@ -222,19 +238,38 @@ h1 {
 
 .resume-content-item {
     font-size: var(--font-size-m);
-    line-height: calc(var(--line-height) * 1.2);
-    border-bottom: 1px solid black;
-    padding-left: 2em;
-    padding-right: 0;
+    line-height: calc(var(--line-height) * 1.7);
+    padding-left: 10em;
+    padding-right: auto;
 }
 
 #resume > article:last-of-type > .resume-content {
     margin-bottom: 0;
 }
 
+#main{
+  width: auto;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+    justify-content: center;
+  padding: 0;
+
+  overflow: hidden;
+  margin: auto;
+}
+
+#main > img{
+  max-width: auto;
+  height: 100vh;
+  display: block;
+  background-color: black;
+  margin: auto;
+}
 
 #projects {
     background-color: black;
+    margin-left: 5em;
 }
 
 #footer-button {
@@ -278,6 +313,8 @@ h1[data]::after {
     border-radius: calc(0.4em + 15px);
     padding: 8px 8px;
     background-color: black;
+    border-style: solid;
+    border-color: white;
 }
 
 #special-cube > a {
@@ -333,8 +370,18 @@ li.list-item + li.list-item {
 }
 
 .column {
-    padding: 1em;
+    padding: 5em;
     flex: 1;
+}
+
+section > footer {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-sizing: content-box;
+    border-radius: 4px;
 }
 
 form {
@@ -392,15 +439,55 @@ a:active {
 }
 
 @media ( max-width: 768px ) {
+
+  #projects {
+      background-color: black;
+    }
+
   #projects article {
       position: relative;
       display: inline-block;
-      width: calc(100% - (var(--font-size-s)/1));
+      width: calc(100% - (var(--font-size-s)/8));
       height: 20em;
-      padding: 2em;
-      background-color: var(--charcoal-dark);
+      display: flex;
+      justify-content: center;
+      padding-top: 1em;
       box-sizing: border-box;
       overflow: hidden;
+      background-color: black;
+  }
+  #projects article > p{
+  color: black;
+  position: absolute;
+  border-radius: calc(0.4em + 16px);
+  padding: 4px 4px;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  max-width: 200px;
+  display: flex;
+  justify-content: center;
+  font-size: 0.8em;
+  text-align: center;
+
+  }
+
+  #projects article[data]:hover::before {
+      content: attr(data);
+      z-index: 99;
+      margin-top: 10em;
+      color: var(--yellow-full);
+      position: absolute;
+      border-radius: calc(0.4em + 16px);
+      padding: 4px 4px;
+      background-color: black;
+      border-style: solid;
+      border-color: white;
+      max-width: 300px;
+      display: flex;
+      justify-content: center;
+      font-size: 0.8em;
+      text-align: center;
   }
 
   #projects article:nth-of-type(odd) {
@@ -413,32 +500,41 @@ a:active {
 
 }
 
+
+#work {
+  position: absolute;
+  height: auto;
+  background-color: black;
+  padding-left:8em;
+}
+
 #work > img {
     position: relative;
     margin-top: 10px;
     margin-bottom: 50px;
     display: block;
-    margin-left: auto;
+    margin-left: 0;
     height: auto;
-    width: 80%;
+    width: 90%;
     transition: width 1s linear;
     z-index: 90;
-
 }
 
 #work > p{
   width: auto;
-  margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
-  max-width: 70%;
+  margin-top: 5em;
+  max-width: 90%;
   color: white;
   text-align: left;
   display: inline-block;
   font-size: 1rem;
-  line-height: 1.3em;
+  line-height: 1.6em;
   margin-bottom: 100px;
   word-break: keep-all;
-  padding-left: 2em;
-  display: inline-block;
+}
+
+.column {
+    padding: 2em;
+    flex: 1;
 }
